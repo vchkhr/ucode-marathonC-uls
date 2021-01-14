@@ -1,18 +1,19 @@
 #include "libmx.h"
 
-int mx_memcmp(const void *s1, const void *s2, size_t n) {
-    const unsigned char *str1 = s1;
-    const unsigned char *str2 = s2;
-    unsigned int i = 0;
-
-    if (n == 0)
+int mx_memcmp(const void *s1, const void *s2, size_t len) {
+    if (len == 0)
         return 0;
-    else {
-        while (str1[i] == str2[i] && i != n) {
-            if (str1[i] == '\0' && str2[i] == '\0')
-                return 0;
-            i++;
-        }
-        return str1[i] - str2[i];
+
+    const unsigned char *s1_cpy = s1;
+    const unsigned char *s2_cpy = s2;
+    size_t i = 0;
+
+    while (s1_cpy[i] == s2_cpy[i] && i != len) {
+        if (s1_cpy[i] == '\0' && s2_cpy[i] == '\0')
+            return 0;
+
+        i++;
     }
+
+    return s1_cpy[i] - s2_cpy[i];
 }

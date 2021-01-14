@@ -1,14 +1,22 @@
 #include "libmx.h"
 
+// remake to add root
+
 void mx_push_back(t_list **list, void *data) {
-    t_list *back_list = mx_create_node(data);
-    t_list *temp = NULL;
-    if (list == NULL || *list == NULL)
-        *list = back_list;
-    else {
-        temp = *list;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = back_list;
+    if (!data)
+        return;
+
+    t_list *back = mx_create_node(data);
+
+    if (!list || !(*list)) {
+        (*list) = back;
+        return;
     }
+
+    t_list *cpy = (*list);
+        
+    while (cpy->next)
+        cpy = cpy->next;
+
+    cpy->next = back;
 }

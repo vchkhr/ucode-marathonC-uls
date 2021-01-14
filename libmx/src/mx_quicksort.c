@@ -1,32 +1,37 @@
 #include "libmx.h"
 
 int mx_quicksort(char **arr, int left, int right) {
-    if (!arr) return -1;
-    int counter = 0;
+    if (!arr)
+        return -1;
 
-    if (left < right) {
-        int k = left;
-        int j = right;
-        char *pivot = arr[(j + k) / 2];
+    int count = 0;
+    int i = left;
+    int j = right;
+    int pivot = mx_strlen(arr[(i + j) >> 1]);
+    char *temp;
 
-        while (k <= j) {
-            while (mx_strlen(arr[k]) < mx_strlen(pivot)) k++;
-            while (mx_strlen(arr[j]) > mx_strlen(pivot)) j--;
-
-            if (k <= j) {
-                if (mx_strlen(arr[j]) != mx_strlen(arr[k])) {
-                    char *temp = arr[k];
-                    arr[k] = arr[j];
-                    arr[j] = temp;
-                    counter++;
-                }
-                j--;
-                k++;
+    while (i <= j) {
+        while (mx_strlen(arr[i]) < pivot)
+            i++;
+        while (mx_strlen(arr[j]) > pivot)
+            j--;
+            
+        if (i <= j) {
+            if (mx_strlen(arr[j]) != mx_strlen(arr[i])) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                count++;
             }
+            i++;
+            j--;
         }
+    }
 
-        counter += mx_quicksort(arr, left, j);
-        counter += mx_quicksort(arr, k, right);
-    }    
-    return counter;
+    if (j > left)
+        count += mx_quicksort(arr, left, j); 
+    if (i < right)
+        count += mx_quicksort(arr, i, right);
+
+    return count;
 }
