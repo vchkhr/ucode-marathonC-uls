@@ -1,15 +1,14 @@
 #ifndef LIBMX_H
 #define LIBMX_H
 
-#include <malloc/malloc.h> // on mac
-// #include <malloc.h>
+#include <malloc/malloc.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <wchar.h>
 
-// Utils
+// Utilities
 void mx_printchar(char);
 void mx_print_unicode(wchar_t);
 void mx_printstr(const char *);
@@ -62,13 +61,12 @@ void *mx_memmem(const void *, size_t, const void *, size_t);
 void *mx_memmove(void *, const void *, size_t);
 void *mx_realloc(void *, size_t);
 
-// List struct and typedef
+// Lists
 typedef struct s_list {
     void *data;
     struct s_list *next;
 } t_list;
 
-// List
 t_list *mx_create_node(void *);
 void mx_push_front(t_list **, void *);
 void mx_push_back(t_list **, void *);
@@ -77,7 +75,7 @@ void mx_pop_back(t_list **);
 int mx_list_size(t_list *);
 t_list *mx_sort_list(t_list *, bool (*)(void *, void *));
 
-// Fitures
+// Features
 int mx_atoi(const char *);
 bool mx_isspace(const char);
 bool mx_isdigit(const char);
